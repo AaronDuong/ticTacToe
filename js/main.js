@@ -1,17 +1,13 @@
 const tiles = Array.from(document.querySelectorAll(".tile"))
-const playerDisplay = document.querySelector(".player-display")
+const playerDisplay = document.querySelector(".display-player")
 const resetButton = document.querySelector("#reset")
 const announcer = document.querySelector(".announcer")
 
 resetButton.addEventListener("click", resetBoard)
 
 let board = Array(9).fill("")
-let currentPlayer = "x"
+let currentPlayer = "X"
 let isGameActive = true
-
-const PLAYERX_WON = "Player X won!"
-const PLAYERO_WON = "Player O won!"
-const TIE = "It's a draw!"
 
 const winningConditions = [
 	[0, 1, 2],
@@ -41,26 +37,26 @@ function handleResultValidation() {
 	}
 
 	if (roundWon) {
-		announce(currentPlayer === "X" ? PLAYERX_WON : PLAYERO_WON)
+		announce(currentPlayer === "X" ? "PLAYERX_WON" : "PLAYERO_WON")
 		isGameActive = false
 		return
 	}
 
-	if (!board.includes("")) announce(TIE)
+	if (!board.includes("")) announce("TIE")
 }
 
-const announce = (type) => {
+function announce(type) {
 	switch (type) {
-		case PLAYERX_WON:
-			announcer.innerHTML = `<p>Player <span class="playerX">X</span>Won</p>`
+		case "PLAYERX_WON":
+			announcer.innerHTML = `<p>Player <span class="playerX">X</span> Won</p>`
 			break
-		case PLAYERO_WON:
-			announcer.innerHTML = `<p>Player <span class="playerO">O</span>Won</p>`
+		case "PLAYERO_WON":
+			announcer.innerHTML = `<p>Player <span class="playerO">O</span> Won</p>`
 			break
-		case TIE:
+		case "TIE":
 			announcer.innerHTML = `<p>It's a draw</p>`
 	}
-	announcer.classList.remove(".hide")
+	announcer.classList.remove("hide")
 }
 
 const isValidAction = (tile) => {
@@ -74,8 +70,8 @@ const updateBoard = (index) => {
 
 const changePlayer = () => {
 	playerDisplay.classList.remove(`player${currentPlayer}`)
-	currentPlayer = currentPlayer === "x" ? "o" : "x"
-	playerDisplay.innerText = `Current Player: ${currentPlayer}`
+	currentPlayer = currentPlayer === "X" ? "O" : "X"
+	playerDisplay.innerText = currentPlayer
 	playerDisplay.classList.add(`player${currentPlayer}`)
 }
 
